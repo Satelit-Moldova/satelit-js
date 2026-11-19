@@ -1,0 +1,632 @@
+[
+ [
+  "rates.list",
+  "/rates",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "rates.history",
+  "/rates/history",
+  "Costs 1 credit per started 30 days",
+  "{ code, … }"
+ ],
+ [
+  "fuel.today",
+  "/fuel",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "fuel.stations",
+  "/fuel/stations",
+  "Costs 5 credits per page",
+  "params?"
+ ],
+ [
+  "fuel.history",
+  "/fuel/history",
+  "Costs 2 credits per started 30 days",
+  "{ fuel, … }"
+ ],
+ [
+  "tariffs.list",
+  "/tariffs",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "indexes.basket",
+  "/indexes/basket",
+  "Costs per day, across shops, with no shop named",
+  "params?"
+ ],
+ [
+  "indexes.moves",
+  "/indexes/moves",
+  "Costs 2 credits",
+  "params?"
+ ],
+ [
+  "law.acts",
+  "/law/acts",
+  "Costs 3 credits with `q`, else 2",
+  "params?"
+ ],
+ [
+  "law.act",
+  "/law/acts/{id}",
+  "Costs 1 credit",
+  "id"
+ ],
+ [
+  "law.digests",
+  "/law/digests",
+  "Costs 2 credits",
+  "params?"
+ ],
+ [
+  "law.digest",
+  "/law/digests/{date}",
+  "Costs 2 credits",
+  "date"
+ ],
+ [
+  "news.list",
+  "/news",
+  "Costs 2 credits",
+  "params?"
+ ],
+ [
+  "news.now",
+  "/news/now",
+  "Costs 2 credits",
+  "params?"
+ ],
+ [
+  "news.search",
+  "/news/search",
+  "Costs 3 credits",
+  "{ q, … }"
+ ],
+ [
+  "news.day",
+  "/news/days/{date}",
+  "Costs 10 credits",
+  "date, params?"
+ ],
+ [
+  "news.categories",
+  "/news/categories",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "news.regions",
+  "/news/regions",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "news.outlets",
+  "/news/outlets",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "news.get",
+  "/news/{id}",
+  "Costs 1 credit",
+  "id"
+ ],
+ [
+  "news.reaction",
+  "/news/{id}/reaction",
+  "Costs 1 credit",
+  "id"
+ ],
+ [
+  "news.comments",
+  "/news/{id}/comments",
+  "Costs 3 credits",
+  "id, params?"
+ ],
+ [
+  "news.events.list",
+  "/news/events",
+  "Costs 2 credits",
+  "params?"
+ ],
+ [
+  "news.events.get",
+  "/news/events/{id}",
+  "Costs 1 credit",
+  "id"
+ ],
+ [
+  "news.events.comments",
+  "/news/events/{id}/comments",
+  "Costs 3 credits",
+  "id, params?"
+ ],
+ [
+  "places.list",
+  "/places",
+  "Costs 2 credits per page",
+  "params?"
+ ],
+ [
+  "recipes.list",
+  "/recipes",
+  "Costs at today's prices: one total, no shop behind it",
+  ""
+ ],
+ [
+  "recipes.get",
+  "/recipes/{slug}",
+  "Costs 1 credit",
+  "slug"
+ ],
+ [
+  "prices.stores",
+  "/prices/stores",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "prices.search",
+  "/prices/search",
+  "Costs 3 credits",
+  "{ q, … }"
+ ],
+ [
+  "prices.groups",
+  "/prices/groups",
+  "Costs 2 credits",
+  "params?"
+ ],
+ [
+  "prices.group",
+  "/prices/groups/{id}",
+  "Costs 3 credits",
+  "id"
+ ],
+ [
+  "prices.item",
+  "/prices/items/{id}",
+  "Costs 2 credits",
+  "id"
+ ],
+ [
+  "prices.itemHistory",
+  "/prices/items/{id}/history",
+  "Costs 5 credits per started 30 days",
+  "id, params?"
+ ],
+ [
+  "deals.list",
+  "/deals",
+  "Costs 5 credits per page",
+  "params?"
+ ],
+ [
+  "tours.list",
+  "/tours",
+  "Costs 3 credits per page",
+  "params?"
+ ],
+ [
+  "tours.countries",
+  "/tours/countries",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "tours.get",
+  "/tours/{id}",
+  "Costs on each day we saw it",
+  "id"
+ ],
+ [
+  "flights.destinations",
+  "/flights/destinations",
+  "Costs 2 credits",
+  ""
+ ],
+ [
+  "flights.destination",
+  "/flights/destinations/{code}",
+  "Costs 3 credits",
+  "code"
+ ],
+ [
+  "flights.board",
+  "/flights/board",
+  "Costs 2 credits",
+  "params?"
+ ],
+ [
+  "rest.list",
+  "/rest",
+  "Costs 3 credits per page",
+  "params?"
+ ],
+ [
+  "estate.get",
+  "/estate",
+  "Costs 3 credits",
+  "params?"
+ ],
+ [
+  "power.day",
+  "/power",
+  "Costs 1 credit",
+  "params?"
+ ],
+ [
+  "power.history",
+  "/power/history",
+  "Costs 2 credits per started 30 days",
+  "params?"
+ ],
+ [
+  "power.bilateral",
+  "/power/bilateral",
+  "Costs 1 credit",
+  "params?"
+ ],
+ [
+  "market.categories",
+  "/market/categories",
+  "Costs 2 credits",
+  ""
+ ],
+ [
+  "market.prices",
+  "/market/prices",
+  "Costs 2 credits per 50 rows",
+  "params?"
+ ],
+ [
+  "market.history",
+  "/market/history",
+  "Costs 3 credits per started 30 days",
+  "params?"
+ ],
+ [
+  "market.sellers",
+  "/market/sellers",
+  "Costs 3 credits per 50 rows",
+  "params?"
+ ],
+ [
+  "market.seller",
+  "/market/sellers/{id}",
+  "Costs 2 credits",
+  "id"
+ ],
+ [
+  "feed.list",
+  "/feed",
+  "Business and Enterprise plans only. Costs nothing on a contract plan",
+  "params?"
+ ],
+ [
+  "jokes.list",
+  "/jokes",
+  "Costs 1 credit per 20 rows, 2 with `q`",
+  "params?"
+ ],
+ [
+  "jokes.today",
+  "/jokes/today",
+  "Costs 1 credit",
+  "params?"
+ ],
+ [
+  "jokes.random",
+  "/jokes/random",
+  "Costs 1 credit",
+  "params?"
+ ],
+ [
+  "jokes.topics",
+  "/jokes/topics",
+  "Costs 1 credit",
+  "params?"
+ ],
+ [
+  "jokes.get",
+  "/jokes/{id}",
+  "Costs 1 credit",
+  "id"
+ ],
+ [
+  "courts.courts",
+  "/courts/courts",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "courts.search",
+  "/courts/search",
+  "Costs 3 credits per 20 rows",
+  "{ q, … }"
+ ],
+ [
+  "courts.hearings",
+  "/courts/hearings",
+  "Costs 2 credits per 50 rows",
+  "params?"
+ ],
+ [
+  "courts.case",
+  "/courts/case",
+  "Costs 1 credit",
+  "{ number, … }"
+ ],
+ [
+  "courts.judge",
+  "/courts/judges/{slug}",
+  "Costs 1 credit",
+  "slug"
+ ],
+ [
+  "courts.name",
+  "/courts/names/{kind}/{slug}",
+  "Costs 3 credits per 20 rows",
+  "kind, slug, params?"
+ ],
+ [
+  "courts.stats",
+  "/courts/stats",
+  "Costs 2 credits",
+  "params?"
+ ],
+ [
+  "citizenship.lookup",
+  "/citizenship/lookup",
+  "Costs 1 credit",
+  "{ q, … }"
+ ],
+ [
+  "citizenship.stats",
+  "/citizenship/stats",
+  "Costs 2 credits",
+  "params?"
+ ],
+ [
+  "citizenship.years",
+  "/citizenship/years",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "citizenship.year",
+  "/citizenship/years/{slug}",
+  "Costs 2 credits per 200 rows",
+  "slug, params?"
+ ],
+ [
+  "citizenship.orders",
+  "/citizenship/orders",
+  "Costs 2 credits per 50 rows",
+  "params?"
+ ],
+ [
+  "citizenship.order",
+  "/citizenship/orders/{order}",
+  "Costs 2 credits per 200 rows",
+  "order, params?"
+ ],
+ [
+  "citizenship.oath",
+  "/citizenship/oath",
+  "Costs 1 credit",
+  ""
+ ],
+ [
+  "companies.search",
+  "/companies",
+  "Costs 3 credits per 20 rows",
+  "{ q, … }"
+ ],
+ [
+  "companies.stats",
+  "/companies/stats",
+  "Costs 2 credits",
+  ""
+ ],
+ [
+  "companies.licences",
+  "/companies/licences",
+  "Costs 2 credits per 50 rows",
+  "params?"
+ ],
+ [
+  "companies.notices",
+  "/companies/notices",
+  "Costs 2 credits per 50 rows",
+  "params?"
+ ],
+ [
+  "companies.get",
+  "/companies/{idno}",
+  "Costs 2 credits",
+  "idno"
+ ],
+ [
+  "companies.contracts",
+  "/companies/{idno}/contracts",
+  "Costs 2 credits per 50 rows",
+  "idno, params?"
+ ],
+ [
+  "companies.licencesOf",
+  "/companies/{idno}/licences",
+  "Costs 1 credit",
+  "idno"
+ ],
+ [
+  "companies.noticesOf",
+  "/companies/{idno}/notices",
+  "Costs 1 credit",
+  "idno"
+ ],
+ [
+  "delivery.terms",
+  "/delivery",
+  "Costs 2 credits",
+  "params?"
+ ],
+ [
+  "insurance.insurers",
+  "/insurance/insurers",
+  "Costs 2 credits",
+  ""
+ ],
+ [
+  "insurance.market",
+  "/insurance/market",
+  "Costs 2 credits",
+  ""
+ ],
+ [
+  "insurance.tariffs",
+  "/insurance/tariffs",
+  "Costs 1 credit",
+  "params?"
+ ],
+ [
+  "geo.search",
+  "/geo/search",
+  "Costs 1 credit",
+  "{ q, … }"
+ ],
+ [
+  "geo.streets",
+  "/geo/streets",
+  "Costs 2 credits per 50 rows",
+  "{ q, … }"
+ ],
+ [
+  "catalog.tree",
+  "/catalog/tree",
+  "Costs 0 credits",
+  ""
+ ],
+ [
+  "movies.search",
+  "/movies/search",
+  "Costs 40 credits",
+  "{ q, … }"
+ ],
+ [
+  "movies.title",
+  "/movies/titles/{id}",
+  "Costs 40 credits",
+  "id"
+ ],
+ [
+  "movies.titleFull",
+  "/movies/titles/{id}/full",
+  "Costs 55 credits",
+  "id"
+ ],
+ [
+  "movies.showtimes",
+  "/movies/titles/{id}/showtimes",
+  "Costs 40 credits",
+  "id, params?"
+ ],
+ [
+  "movies.person",
+  "/movies/people/{id}",
+  "Costs 40 credits",
+  "id"
+ ],
+ [
+  "movies.discover",
+  "/movies/discover",
+  "Costs 40 credits",
+  "params?"
+ ],
+ [
+  "movies.trending",
+  "/movies/trending",
+  "Costs 40 credits",
+  "params?"
+ ],
+ [
+  "movies.inCinemas",
+  "/movies/cinema",
+  "Costs 40 credits",
+  "params?"
+ ],
+ [
+  "movies.genres",
+  "/movies/genres",
+  "Costs nothing",
+  "params?"
+ ],
+ [
+  "movies.cinemas",
+  "/movies/cinemas",
+  "Costs 40 credits",
+  "params?"
+ ],
+ [
+  "movies.cinemaSchedule",
+  "/movies/cinemas/{id}/schedule",
+  "Costs 40 credits",
+  "id, params?"
+ ],
+ [
+  "movies.today",
+  "/movies/cinemas/today",
+  "Costs 40 credits",
+  "params?"
+ ],
+ [
+  "movies.board",
+  "/movies/board",
+  "No key, 0 credits",
+  ""
+ ],
+ [
+  "me",
+  "/me",
+  "Costs nothing",
+  ""
+ ],
+ [
+  "products",
+  "/products",
+  "No key, 0 credits",
+  ""
+ ],
+ [
+  "plans",
+  "/plans",
+  "No key, 0 credits",
+  ""
+ ],
+ [
+  "status",
+  "/status",
+  "No key, 0 credits",
+  ""
+ ],
+ [
+  "stats",
+  "/stats",
+  "No key, 0 credits",
+  ""
+ ],
+ [
+  "sample",
+  "/sample",
+  "No key, 0 credits",
+  ""
+ ]
+]

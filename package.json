@@ -1,0 +1,47 @@
+{
+  "name": "@satelit-moldova/sdk",
+  "version": "1.0.0",
+  "description": "Official JavaScript and TypeScript SDK for the Satelit data API: Moldova's rates, fuel, prices, law, news, movies and more.",
+  "license": "MIT",
+  "author": "Satelit (https://satelit.md)",
+  "homepage": "https://developer.satelit.md/en/docs/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Satelit-Moldova/satelit-js.git"
+  },
+  "bugs": "https://github.com/Satelit-Moldova/satelit-js/issues",
+  "keywords": ["satelit", "moldova", "api", "sdk", "exchange-rates", "fuel-prices", "bnm", "anre"],
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md", "LICENSE", "CHANGELOG.md"],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc -p tsconfig.check.json",
+    "test": "node --test test/client.test.mjs test/resources.test.mjs test/schemas.test.mjs test/cjs.test.cjs",
+    "test:live": "node --test test/live.test.mjs",
+    "check": "npm run generate && npm run build && npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

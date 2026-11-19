@@ -1,0 +1,4 @@
+* text=auto eol=lf
+dist/** linguist-generated=true
+src/types.ts linguist-generated=true
+src/resources.ts linguist-generated=true

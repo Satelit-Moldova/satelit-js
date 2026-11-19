@@ -1,0 +1,2273 @@
+export interface Source {
+    name: string;
+    url: string | null;
+    license: string | null;
+    download?: string;
+    attribution?: string;
+    notice?: string;
+}
+export interface Page {
+    page: number;
+    per: number;
+    total: number;
+    pages: number;
+}
+export interface Meta {
+    credits: number;
+    updated_at: string | null;
+    sources: Source[];
+    attribution: string | null;
+    page?: Page;
+    history_cut?: boolean;
+    fields_cut?: boolean;
+    notice?: string;
+    next?: string | null;
+    has_more?: boolean;
+    period?: {
+        from: string;
+        to: string;
+    };
+    slot?: {
+        key: string;
+        label: string;
+    } | null;
+    region?: {
+        key: string;
+        label: string;
+    };
+    coverage?: CourtCoverage;
+    by?: "name" | "number";
+    date?: string;
+    view?: string;
+    profile?: {
+        kind: "person" | "company";
+        name: string;
+        cases: number;
+        url: string;
+    };
+    classes?: ({
+        code: string;
+        name: string | null;
+        n: number;
+    })[];
+    checked?: string | null;
+}
+export interface Error {
+    error: {
+        code: string;
+        message: string;
+        docs: string;
+        fields?: string[];
+    };
+}
+export interface Rate {
+    code: string;
+    name: string;
+    value: number;
+    nominal: number;
+    date: string;
+    change_7d_pct: number | null;
+    change_30d_pct: number | null;
+}
+export interface RateHistory {
+    code: string;
+    points: {
+        date: string;
+        value: number;
+    }[];
+}
+export interface FuelBoard {
+    date: string | null;
+    cap: {
+        a95: number | null;
+        diesel: number | null;
+    };
+    networks: ({
+        key: string;
+        name: string;
+        url: string | null;
+        stations: number | null;
+        date: string;
+        stale: boolean;
+        prices: {
+            a95: number | null;
+            diesel: number | null;
+            lpg: number | null;
+        };
+    })[];
+    cheapest: {
+        a95: string | null;
+        diesel: string | null;
+        lpg: string | null;
+    };
+    range: {
+        a95: {
+            min: number;
+            max: number;
+            networks: number;
+        } | null;
+        diesel: {
+            min: number;
+            max: number;
+            networks: number;
+        } | null;
+        lpg: {
+            min: number;
+            max: number;
+            networks: number;
+        } | null;
+    };
+}
+export interface Station {
+    id: string;
+    network: string;
+    name: string;
+    address: string | null;
+    raion: string | null;
+    lat: number | null;
+    lon: number | null;
+    date: string;
+    prices: {
+        a95: number | null;
+        diesel: number | null;
+        lpg: number | null;
+    };
+}
+export interface FuelHistory {
+    fuel: string;
+    network: string | null;
+    points: {
+        date: string;
+        value: number;
+    }[];
+}
+export interface Tariff {
+    key: string;
+    label: string;
+    provider: string | null;
+    region: string;
+    unit: string;
+    value: number;
+    valid_from: string | null;
+    decision: string | null;
+    parts: {
+        water: number;
+        sewerage: number | null;
+    } | null;
+    vat: boolean;
+}
+export interface Basket {
+    items: {
+        product: string;
+        qty: number;
+        unit: string;
+    }[];
+    points: {
+        date: string;
+        total: number;
+        cheapest_total: number;
+    }[];
+    change_mom: number | null;
+    change_yoy: number | null;
+}
+export interface MoveStats {
+    compared: number;
+    up: number;
+    down: number;
+    same: number;
+    change_pct: number | null;
+}
+export interface Moves {
+    from: string | null;
+    to: string | null;
+    compared: number;
+    up: number;
+    down: number;
+    same: number;
+    change_pct: number | null;
+    groups: ({
+        key: string;
+        label: string;
+        compared: number;
+        up: number;
+        down: number;
+        same: number;
+        change_pct: number | null;
+    })[];
+}
+export interface NewsCard {
+    id: string;
+    kind: "article" | "brief";
+    category: {
+        key: string;
+        label: string;
+    };
+    title: string | null;
+    dek: string | null;
+    gravity: number;
+    band: "low" | "moderate" | "high" | "severe";
+    reach: number | null;
+    region: {
+        key: "global" | "chisinau" | "balti" | "nord" | "centru" | "sud" | "gagauzia" | "transnistria" | "diaspora";
+        label: string;
+    } | null;
+    regions: ("global" | "chisinau" | "balti" | "nord" | "centru" | "sud" | "gagauzia" | "transnistria" | "diaspora")[];
+    slot: {
+        key: "morning" | "noon" | "evening";
+        label: string;
+    } | null;
+    due_at: string;
+    published_at: string;
+    sources: {
+        name: string;
+        url: string;
+    }[];
+    sources_count: number;
+    image: {
+        url: string;
+        w: number | null;
+        h: number | null;
+        credit: string | null;
+        credit_url: string | null;
+    } | null;
+    reaction: ReactionCard | null;
+    event_id: string | null;
+}
+export interface NewsDay {
+    date: string;
+    count: number;
+    avg_gravity: number | null;
+    max_gravity: number | null;
+    items: NewsCard[];
+}
+export interface Category {
+    key: string;
+    label: string;
+}
+export interface NewsRegions {
+    regions: ({
+        key: string;
+        label: string;
+        parent: string | null;
+    })[];
+    slots: {
+        key: string;
+        label: string;
+        from: string;
+        to: string;
+    }[];
+}
+export interface Place {
+    id: string;
+    kind: "shop" | "venue";
+    name: string;
+    chain: string | null;
+    category: string | null;
+    city: string | null;
+    address: string | null;
+    lat: number;
+    lon: number;
+    phone: string | null;
+    website: string | null;
+    opening_hours: string | null;
+    updated_at: string;
+}
+export interface RecipeCard {
+    slug: string;
+    title: string;
+    servings: number | null;
+    time_min: number | null;
+    tags: string[];
+    cost_today: number | null;
+    cost_per_serving: number | null;
+}
+export interface Me {
+    plan: string | null;
+    credits: {
+        limit: number;
+        used: number;
+        reset: string;
+        plan: number;
+        extra: number;
+    };
+    rate: {
+        per_minute: number;
+    };
+    key: {
+        name: string;
+        prefix: string;
+    };
+}
+export interface ShopRef {
+    key: string;
+    name: string;
+}
+export interface PriceStore {
+    key: string;
+    name: string;
+    domain: string | null;
+    kind: string;
+    products: number;
+    updated_at: string;
+}
+export interface PriceItem {
+    id: number;
+    slug: string;
+    name: string;
+    brand: string | null;
+    capacity: string | null;
+    category: string | null;
+    min_price: number;
+    median_price: number;
+    unit_min_price: number | null;
+    price_unit: string | null;
+    stores: number;
+    in_stock_stores: number;
+    updated_at: string;
+}
+export interface Offer {
+    store: ShopRef;
+    title: string;
+    price: number;
+    old_price: number | null;
+    discount_pct: number | null;
+    unit_price: number | null;
+    unit: string | null;
+    in_stock: boolean | null;
+    url: string | null;
+    last_seen: string;
+}
+export interface PriceGroup {
+    id: string;
+    name: string;
+    unit: string | null;
+    min_price: number;
+    median_price: number;
+    unit_min_price: number | null;
+    price_unit: string | null;
+    stores: number;
+}
+export interface PricePoint {
+    date: string;
+    store: string;
+    price: number;
+    old_price: number | null;
+    unit_price: number | null;
+    in_stock: boolean | null;
+}
+export interface Deal {
+    name: string;
+    brand: string | null;
+    capacity: string | null;
+    category: string | null;
+    store: ShopRef;
+    price: number;
+    old_price: number;
+    discount_pct: number;
+    save: number;
+    unit_price: number | null;
+    unit: string | null;
+    stores: number;
+    url: string | null;
+}
+export interface FeedEvent {
+    id: string;
+    type: "news.published" | "law.digest" | "fuel.cap" | "rates.updated" | "price.changed";
+    created_at: string;
+    data: Record<string, unknown>;
+}
+export interface ActBrief {
+    id: number;
+    slug: string | null;
+    type: string;
+    type_label: string;
+    type_raw: string | null;
+    number: string | null;
+    code: string | null;
+    title: string;
+    title_ru: string | null;
+    heading: string;
+    heading_lang: string;
+    issuer: string | null;
+    issuer_name: string | null;
+    issuer_key: string | null;
+    subject: string;
+    subject_lang: string;
+    topic: string | null;
+    kind: string | null;
+    targets: ({
+        type: string;
+        type_label: string;
+        number: string;
+        year: number | null;
+    })[];
+    adopted_on: string | null;
+    published_on: string | null;
+    in_force_on: string | null;
+    repealed_on: string | null;
+    status: string;
+    important: boolean;
+    mo_ref: string | null;
+    url: string;
+    has_text: boolean;
+    has_text_ru: boolean;
+    topics: string[];
+    headline: string | null;
+    summary: string | null;
+}
+export interface Act {
+    id: number;
+    slug: string | null;
+    type: string;
+    type_label: string;
+    type_raw: string | null;
+    number: string | null;
+    code: string | null;
+    title: string;
+    title_ru: string | null;
+    heading: string;
+    heading_lang: string;
+    issuer: string | null;
+    issuer_name: string | null;
+    issuer_key: string | null;
+    subject: string;
+    subject_lang: string;
+    topic: string | null;
+    kind: string | null;
+    targets: ({
+        type: string;
+        type_label: string;
+        number: string;
+        year: number | null;
+    })[];
+    adopted_on: string | null;
+    published_on: string | null;
+    in_force_on: string | null;
+    repealed_on: string | null;
+    status: string;
+    important: boolean;
+    mo_ref: string | null;
+    url: string;
+    has_text: boolean;
+    has_text_ru: boolean;
+    topics: string[];
+    headline: string | null;
+    summary: {
+        title: string;
+        summary: string;
+        key_points: string[];
+        tags: string[];
+        created_at: string;
+    } | null;
+    text: string | null;
+    text_hash: string | null;
+    lang: string;
+    version_date: string | null;
+    outline: Record<string, unknown>[];
+    text_ru: string | null;
+    outline_ru: Record<string, unknown>[];
+    type_raw_ru: string | null;
+    url_ru: string | null;
+    attachments: Record<string, unknown>[];
+    versions: ({
+        doc_id: number;
+        valid_from: string | null;
+        url: string;
+    })[];
+    amends: Record<string, unknown>[];
+    amended_by: Record<string, unknown>[];
+    amended_by_acts: ActBrief[];
+    promulgates: ActBrief | null;
+    promulgated_by: ActBrief | null;
+    updated_at: string | null;
+}
+export interface DigestRow {
+    date: string;
+    acts: number;
+    title: string;
+}
+export interface Digest {
+    date: string;
+    lang: string;
+    title: string;
+    intro: string;
+    items: Record<string, unknown>[];
+    updated_at: string | null;
+}
+export type NewsStory = NewsCard & ({
+    summary: string | null;
+    explain: string | null;
+    facts: string[] | null;
+});
+export type Recipe = RecipeCard & ({
+    ingredients: ({
+        name: string;
+        qty: number | null;
+        unit: string | null;
+    })[];
+    steps: string[];
+});
+export type PriceItemDetail = PriceItem & {
+    offers: Offer[];
+};
+export type PriceGroupDetail = PriceGroup & {
+    offers: Offer[];
+};
+export interface PriceHistory {
+    points: PricePoint[];
+}
+export interface Catalogue {
+    products: ({
+        key: string;
+        state: "open" | "contract" | "closed";
+        freshness: string | null;
+        endpoints: Record<string, unknown>[];
+        sources?: Source[];
+    })[];
+    shops: {
+        open: number;
+        offers: number;
+    };
+    downloads: {
+        product: string;
+        url: string;
+        license: string;
+    }[];
+}
+export interface Tour {
+    id: number;
+    agency: string;
+    title: string | null;
+    country: string | null;
+    resort: string | null;
+    hotel: string | null;
+    stars: number | null;
+    board: string | null;
+    room: string | null;
+    nights: number | null;
+    date_from: string | null;
+    adults: number | null;
+    price: number;
+    currency: string;
+    price_mdl: number | null;
+    price_per: string;
+    price_pp_mdl: number | null;
+    departure: string | null;
+    transport: string | null;
+    url: string | null;
+    hot: boolean;
+    last_seen: string;
+}
+export type TourDetail = Tour & ({
+    history: ({
+        date: string;
+        price: number;
+        currency: string;
+        price_mdl: number | null;
+    })[];
+});
+export interface TourCountry {
+    country: string;
+    offers: number;
+    min_price_mdl: number | null;
+    min_price_pp_mdl: number | null;
+    agencies: number;
+}
+export interface Flight {
+    flight_no: string;
+    airline: string;
+    airline_code: string;
+    city: string;
+    iata: string;
+    scheduled: string;
+}
+export interface Fare {
+    destination: string;
+    airport: string | null;
+    price: number;
+    currency: string;
+    price_mdl: number | null;
+    airline: string | null;
+    flight_number: string | null;
+    departure_at: string | null;
+    return_at: string | null;
+    transfers: number | null;
+    duration: number | null;
+}
+export interface Destination {
+    iata: string;
+    city: string | null;
+    airlines: string[];
+    flights_per_week: number;
+    season_from: string | null;
+    season_to: string | null;
+    direct: boolean;
+    fare_from: Fare | null;
+}
+export type DestinationDetail = Destination & {
+    weekdays: number[];
+    departures: Flight[];
+    arrivals: Flight[];
+    fares: Fare[];
+    months: Fare[];
+};
+export interface Board {
+    kind: string;
+    day: string;
+    flights: Flight[];
+}
+export interface RestPlace {
+    id: number;
+    name: string;
+    kind: string;
+    region: string | null;
+    city: string | null;
+    lat: number | null;
+    lon: number | null;
+    price_from: number | null;
+    price_unit: string | null;
+    sources: ({
+        name: string;
+        url: string | null;
+    })[];
+    updated_at: string;
+}
+export interface Estate {
+    series: ({
+        kind: "sale" | "rent";
+        scope: "md" | "city";
+        key: string;
+        name: string | null;
+        unit: string;
+        points: ({
+            date: string;
+            median: number;
+            per_m2: number | null;
+            price: number | null;
+            n: number;
+        })[];
+    })[];
+}
+export interface PowerDay {
+    date: string;
+    currency: string;
+    unit: string;
+    base: number;
+    volume: number | null;
+    peak: number | null;
+    peak_volume: number | null;
+    offpeak: number | null;
+    offpeak_volume: number | null;
+    intervals: number;
+    hours: ({
+        interval: number;
+        from?: string;
+        to?: string;
+        price?: number;
+        volume?: number | null;
+        offered_sell?: number | null;
+        offered_buy?: number | null;
+        peak?: boolean;
+    })[];
+    cheapest: {
+        interval: number;
+        price: number;
+    } | null;
+    dearest: {
+        interval: number;
+        price: number;
+    } | null;
+    cheapest_3h: {
+        from_interval: number;
+        price: number;
+    } | null;
+    scale: {
+        min: number | null;
+        max: number;
+    } | null;
+    intraday: {
+        average: number;
+        volume: number | null;
+        hours: ({
+            interval: number;
+            from?: string;
+            to?: string;
+            min?: number | null;
+            max?: number | null;
+            last?: number | null;
+            average?: number | null;
+            bought?: number | null;
+            sold?: number | null;
+        })[];
+    } | null;
+}
+export interface PowerHistory {
+    currency: string;
+    unit: string;
+    points: ({
+        date: string;
+        base: number;
+        peak: number | null;
+        offpeak: number | null;
+        volume: number | null;
+        hours?: ({
+            interval: number;
+            from?: string;
+            to?: string;
+            price?: number;
+            volume?: number | null;
+            offered_sell?: number | null;
+            offered_buy?: number | null;
+            peak?: boolean;
+        })[];
+    })[];
+}
+export interface PowerBilateral {
+    currency: string;
+    unit: string;
+    sessions: ({
+        date: string;
+        price: number;
+        awarded_mwh: number | null;
+        offers: Record<string, unknown>[];
+    })[];
+}
+export interface Plans {
+    plans: Record<string, unknown>[];
+    pack: number;
+    packs_max: number;
+    recommended: string | null;
+    currency?: string;
+    year_months?: number;
+}
+export interface Status {
+    ok: boolean;
+    products: ({
+        key: string;
+        updated_at: string | null;
+        stale: boolean;
+    })[];
+}
+export interface Stats {
+    counts: Record<string, number | string>;
+    updated_at: string | null;
+}
+export interface Sample {
+    rates: Rate[];
+    fuel: {
+        cap: Record<string, unknown>;
+        cheapest: Record<string, unknown>;
+    } | null;
+    news: NewsCard[];
+    law: {
+        date: string;
+        title: string;
+        acts: number;
+    } | null;
+    price: {
+        name: string;
+        min_price: number;
+        store: string;
+    } | null;
+    updated_at: string | null;
+}
+export interface CategoryRef {
+    id: number;
+    name: string | null;
+    url: string | null;
+    group: {
+        id: number;
+        name: string | null;
+        url: string | null;
+    } | null;
+}
+export interface MarketDist {
+    median: number | null;
+    p10: number | null;
+    p25: number | null;
+    p75: number | null;
+    p90: number | null;
+    min: number | null;
+    max: number | null;
+}
+export interface MarketCategory {
+    category: CategoryRef;
+    volume: number;
+    priced: number | null;
+    median_mdl: number | null;
+}
+export interface MarketPrice {
+    category: CategoryRef;
+    city: string | null;
+    day: string;
+    volume: number;
+    priced: number | null;
+    currency: string | null;
+    prices: MarketDist | null;
+}
+export interface MarketPoint {
+    date: string;
+    volume: number;
+    new?: number | null;
+    removed?: number | null;
+    priced?: number | null;
+    prices?: MarketDist | null;
+}
+export interface MarketHistory {
+    category: CategoryRef;
+    city: string | null;
+    points: MarketPoint[];
+}
+export interface MarketSeller {
+    id: string;
+    source: string;
+    active: number;
+    total: number;
+    categories: number;
+    top_category: CategoryRef | null;
+    activity: "occasional" | "regular" | "high";
+    first_seen: string | null;
+    last_active: string | null;
+    tenure_days?: number | null;
+    new?: boolean;
+    sold?: number;
+    sold_recent?: number;
+    in_category?: {
+        active: number;
+        total: number;
+        median_mdl: number | null;
+    };
+    category_breakdown?: ({
+        category: CategoryRef;
+        active: number;
+        total: number;
+        median_mdl: number | null;
+        last_active: string | null;
+    })[];
+}
+export interface Joke {
+    id: string;
+    kind: "joke" | "riddle" | "proverb" | "quote";
+    title: string;
+    text: string;
+    lang: string;
+    topic: "family" | "couples" | "kids" | "school" | "work" | "doctors" | "police" | "animals" | "money" | "drinking" | "food" | "tech" | "travel" | "sport" | "old_age" | "mother_in_law" | "neighbours" | "village" | "army" | "law" | "religion" | "politics" | "bula" | "ion_maria" | "blondes" | "regions" | "wordplay" | "dark" | "other" | null;
+    topics: ("family" | "couples" | "kids" | "school" | "work" | "doctors" | "police" | "animals" | "money" | "drinking" | "food" | "tech" | "travel" | "sport" | "old_age" | "mother_in_law" | "neighbours" | "village" | "army" | "law" | "religion" | "politics" | "bula" | "ion_maria" | "blondes" | "regions" | "wordplay" | "dark" | "other")[];
+    score: number;
+    md_score: number;
+    min_age: number;
+    kids_ok: boolean;
+    adult: boolean;
+    flags: ("sexual" | "profanity" | "violence" | "alcohol" | "drugs" | "ethnic" | "regional" | "gender" | "religion" | "politics" | "death" | "disability" | "toilet" | "cheating")[];
+    langs: string[];
+    source: {
+        name: string;
+        url: string;
+    };
+    published_at: string | null;
+    voice: ({
+        speaker: "narrator" | "female" | "male";
+        text: string;
+    })[] | null;
+    dialogue: boolean | null;
+}
+export type JokeToday = Joke & {
+    date: string;
+};
+export type JokeFull = Joke & ({
+    texts: Record<string, {
+        title: string;
+        text: string;
+        voice: {
+            speaker: string;
+            text: string;
+        }[] | null;
+    }>;
+});
+export interface JokeTopic {
+    key: string;
+    name: string;
+    count: number;
+}
+export interface CourtCoverage {
+    courts_read: number;
+    courts_total: number;
+    complete: boolean;
+    agenda_from: string | null;
+    registered_from: string | null;
+    decisions_from: string | null;
+    archive_from: string | null;
+    updated_at: string | null;
+    note: string;
+}
+export interface CourtRef {
+    slug: string;
+    name: string;
+    kind: "district" | "appeal" | "supreme" | "seat";
+    url: string;
+    court?: string;
+}
+export type Court = CourtRef & ({
+    parent: string | null;
+    circuit: string | null;
+    read: boolean;
+});
+export interface CourtCase {
+    number: string;
+    title: string;
+    kind: "civil" | "penal" | "contrav" | "admin" | "other";
+    kind_name: string;
+    court: CourtRef;
+    registered_on: string | null;
+    last_on: string | null;
+    next_on: string | null;
+    hearings: number;
+    decisions: number;
+    decided_on: string | null;
+    url: string | null;
+}
+export interface CourtHearing {
+    id: number;
+    date: string | null;
+    time: string | null;
+    court: string | null;
+    seat: string | null;
+    room: string | null;
+    judge: string | null;
+    kind: "civil" | "penal" | "contrav" | "admin" | "other";
+    outcome: "held" | "postponed" | "interrupted" | "not_held" | null;
+    result: string | null;
+    pdf: string | null;
+    case: CourtCase | null;
+}
+export type CourtCaseFull = CourtCase & ({
+    pigd: string | null;
+    subject: string | null;
+    theme: string | null;
+    first_on: string | null;
+    postponed: number;
+    outcome: string | null;
+    lower_court: string | null;
+    seat: CourtRef | null;
+    judge: {
+        slug: string;
+        name: string;
+        url: string;
+        court?: CourtRef;
+    } | null;
+    timeline: ({
+        date: string | null;
+        time: string | null;
+        room: string | null;
+        judge: string | null;
+        outcome: string | null;
+        result: string | null;
+        pdf: string | null;
+    })[];
+    decisions_list: ({
+        date: string | null;
+        published_on: string | null;
+        kind: string;
+        theme: string | null;
+        pdf: string;
+        judge: string | null;
+    })[];
+    chain: CourtCase[];
+});
+export interface CourtJudgeLoad {
+    judge: {
+        slug: string;
+        name: string;
+        url: string;
+        court?: CourtRef;
+    };
+    load: {
+        today: number;
+        tomorrow: number;
+        tomorrow_date: string;
+        week: number;
+        week_kinds: Record<string, unknown>;
+        next14: {
+            date: string;
+            n: number;
+        }[];
+        next30: number;
+        year_total: number | null;
+        year_kinds: Record<string, unknown>;
+        postponed_rate: number | null;
+        median_days: Record<string, unknown>;
+        decided: number | null;
+        rank_year: number | null;
+        subjects: string[];
+    };
+    agenda: Record<string, unknown>;
+    period: {
+        year_from: string;
+        to: string;
+    };
+    coverage: CourtCoverage;
+    url: string;
+}
+export interface CourtStats {
+    coverage: CourtCoverage;
+    url: string;
+    period?: Record<string, unknown>;
+    periods?: Record<string, unknown>;
+    scope?: CourtRef | null;
+    today?: string;
+    tomorrow?: string;
+    kind?: string | null;
+    totals?: Record<string, unknown>;
+    kinds?: Record<string, unknown>;
+    courts?: Record<string, unknown>[];
+    weeks?: {
+        week: string;
+        n: number;
+    }[];
+    month_so_far?: {
+        held: number;
+        postponed: number;
+        postponed_rate: number | null;
+    };
+    days?: number;
+    comparable?: boolean;
+    total?: Record<string, unknown>;
+    subjects?: Record<string, unknown> | null;
+    warning?: string;
+    judges?: Record<string, unknown>[];
+    period_name?: string;
+    national?: Record<string, unknown> | null;
+}
+export interface CitAsOf {
+    orders_until: string | null;
+    lists_until: string | null;
+    line: string;
+}
+export interface CitDoc {
+    url: string;
+    title: string | null;
+    date: string | null;
+    pages: number | null;
+    via: "live" | "archive";
+    archive_url?: string;
+}
+export interface CitEstimate {
+    m: string;
+    past: boolean;
+    line: string;
+    basis: string;
+}
+export interface CitOrderBrief {
+    slug: string | null;
+    number: string | null;
+    date: string | null;
+    article: string | null;
+    dossiers: number;
+    persons: number | null;
+    lastmod: string | null;
+}
+export interface CitDossier {
+    key: string;
+    status: "oath" | "approved" | "solved" | "termen" | "pending";
+    article: string | null;
+    registered: string | null;
+    termen: string | null;
+    order: {
+        number: string | null;
+        date: string | null;
+        annex: number | null;
+        minors: number | null;
+    } | null;
+    oath: {
+        date: string | null;
+        time: string | null;
+        place: string | null;
+    } | null;
+    waited_days: number | null;
+    estimate: CitEstimate | null;
+    newer: string | null;
+    state: string;
+    line: string;
+    list: {
+        year: number | null;
+        date: string | null;
+    } | null;
+    stale: boolean;
+    last: string | null;
+    anc_printed: {
+        reg_date?: string;
+        termen?: string;
+        number?: string;
+    } | null;
+    links: {
+        anc_pdf: string | null;
+        anc_check: string | null;
+        order_page: string | null;
+        list_page: string | null;
+        page: string;
+    };
+}
+export interface CitLookup {
+    query: string;
+    as_of: CitAsOf;
+    found: boolean;
+    dossiers: CitDossier[];
+    order: CitOrderBrief & ({
+        line: string;
+        page: string | null;
+    }) | null;
+    parsed: {
+        number: number;
+        series: string | null;
+        year: number;
+    } | null;
+    not_found: {
+        key: string;
+        article: string;
+        month: string | null;
+        estimate: CitEstimate | null;
+        newer: string | null;
+        anc_check: string;
+        stale: boolean;
+        last: string | null;
+        line: string;
+        list: {
+            year: number;
+            date: string | null;
+            slug: string;
+            anc_page: string | null;
+        } | null;
+        list_page: string | null;
+        page: string;
+    } | null;
+}
+export interface CitOathWaits {
+    reg_to_oath_days: number | null;
+    order_to_oath_days: number | null;
+    dossiers: number;
+    with_order: number;
+}
+export interface CitMonthEstimate {
+    article: string;
+    month: string;
+    registered: number | null;
+    solved: number | null;
+    share_solved: number | null;
+    median_days: number | null;
+    first_order: string | null;
+    estimate: CitEstimate | null;
+    late: boolean;
+    basis: {
+        month: string | null;
+        median_days: number | null;
+        lists_until: string | null;
+    };
+}
+export interface CitStats {
+    as_of: CitAsOf;
+    articles: ({
+        article: string;
+        dossiers: number;
+        solved: number;
+        approved: number;
+        pending: number;
+        with_termen: number;
+        per_month: number;
+        months_to_clear: number | null;
+    })[];
+    by_year: ({
+        article: string;
+        year: number;
+        registered: number;
+        solved: number;
+        pending: number;
+        share_solved: number;
+        median_days: number | null;
+    })[];
+    solved_by_month: {
+        article: string;
+        months: {
+            m: string;
+            n: number;
+        }[];
+    }[];
+    orders_by_month: {
+        m: string;
+        orders: number;
+        dossiers: number;
+    }[];
+    waits_to_order: {
+        article: string;
+        median_days: number;
+        p25_days: number;
+        p75_days: number;
+        dossiers: number;
+        orders_from: string;
+        orders_until: string;
+    }[];
+    waits_to_oath: CitOathWaits;
+    frontier: ({
+        article: string;
+        dossiers: number;
+        since: string;
+        until: string;
+        from: string | null;
+        median: string | null;
+        to: string | null;
+    })[];
+    eta_basis: ({
+        article: string;
+        lists_until: string | null;
+        month: string | null;
+        median_days: number | null;
+    })[];
+    last_month: {
+        m: string;
+        orders: number;
+        dossiers: number;
+        solved: number;
+    } | null;
+    orders: (CitOrderBrief & ({
+        page: string | null;
+    }))[];
+    estimate: CitMonthEstimate | null;
+}
+export interface CitYears {
+    as_of: CitAsOf;
+    years: ({
+        article: string;
+        year: number;
+        slug: string;
+        registered: number;
+        solved: number;
+        updated: string | null;
+        page: string;
+    })[];
+}
+export interface CitCohort {
+    m: string;
+    registered: number;
+    solved: number;
+    share: number;
+    median_days: number | null;
+    p25_days: number | null;
+    p75_days: number | null;
+    first_order: string | null;
+    last_order: string | null;
+    eta: string | null;
+}
+export interface CitYear {
+    as_of: CitAsOf;
+    slug: string;
+    article: string;
+    year: number;
+    registered: number;
+    solved: number;
+    approved: number;
+    pending: number;
+    with_termen: number;
+    median_days: number | null;
+    updated: string | null;
+    source: CitDoc | null;
+    months: CitCohort[];
+    termen_by_month: {
+        m: string;
+        n: number;
+    }[];
+    orders: ({
+        number: string | null;
+        date: string | null;
+        dossiers: number;
+        slug: string | null;
+    })[];
+    page: string;
+    dossiers: ({
+        key: string;
+        number: number;
+        registered: string | null;
+        termen: string | null;
+        order: string | null;
+        order_date: string | null;
+        approved: boolean;
+        days: number | null;
+    })[];
+    next: number | null;
+}
+export interface CitOrders {
+    as_of: CitAsOf;
+    next: string | null;
+    orders: (CitOrderBrief & ({
+        source: CitDoc | null;
+        page: string | null;
+    }))[];
+}
+export interface CitOrder {
+    as_of: CitAsOf;
+    slug: string | null;
+    number: string | null;
+    number_full: string;
+    date: string | null;
+    article: string | null;
+    persons: number | null;
+    title: string | null;
+    source: CitDoc | null;
+    total: number;
+    minors: number;
+    by_year: {
+        y: number;
+        n: number;
+    }[];
+    abroad: number;
+    romania: number;
+    page: string | null;
+    rows: ({
+        seq: number;
+        key: string;
+        number: number;
+        year: number;
+        annex: number | null;
+        minors: number | null;
+        registered: string | null;
+        days: number | null;
+    })[];
+    next: number | null;
+}
+export interface CitSession {
+    date: string;
+    time: string | null;
+    place: string | null;
+    dossiers: number | null;
+    source: CitDoc | null;
+}
+export interface CitOath {
+    as_of: CitAsOf;
+    next: CitSession[];
+    recent: CitSession[];
+    count: number;
+    page: string;
+    waits: CitOathWaits;
+}
+export interface ReactionCard {
+    score: number | null;
+    label: "negative" | "mixed" | "positive" | null;
+    comments: number;
+}
+export interface Reaction {
+    comments: number;
+    authors: number | null;
+    judged: number;
+    positive: number | null;
+    neutral: number | null;
+    negative: number | null;
+    score: number | null;
+    label: "negative" | "mixed" | "positive" | null;
+    disputed: number | null;
+    toxic: number | null;
+    flagged_ai: number;
+    updated_at: string | null;
+    platforms: Record<string, {
+        posts: number;
+        comments: number;
+        likes: number;
+        dislikes: number;
+        shares: number;
+        views: number;
+    }>;
+}
+export interface EventCard {
+    id: string;
+    title: string;
+    lang: string | null;
+    category: {
+        key: string;
+        label: string;
+    } | null;
+    gravity: number | null;
+    band: "low" | "moderate" | "high" | "severe" | null;
+    region: {
+        key: "global" | "chisinau" | "balti" | "nord" | "centru" | "sud" | "gagauzia" | "transnistria" | "diaspora";
+        label: string;
+    } | null;
+    regions: ("global" | "chisinau" | "balti" | "nord" | "centru" | "sud" | "gagauzia" | "transnistria" | "diaspora")[];
+    slot: {
+        key: "morning" | "noon" | "evening";
+        label: string;
+    } | null;
+    due_at: string | null;
+    first_at: string;
+    last_at: string | null;
+    reports: number;
+    outlets: number;
+    social_only: boolean;
+    reaction: ReactionCard | null;
+}
+export interface EventSource {
+    name: string;
+    url: string;
+    channel: "web" | "facebook" | "tiktok" | "youtube" | "telegram";
+    voice: "outlet" | "media" | "official" | "politician";
+    published_at: string | null;
+    likes: number | null;
+    dislikes: number | null;
+    shares: number | null;
+    views: number | null;
+}
+export type EventDetail = EventCard & ({
+    sources: EventSource[];
+    reaction: Reaction | ReactionCard | null;
+});
+export interface NewsComment {
+    id: string;
+    text: string;
+    platform: "facebook" | "tiktok" | "youtube" | "telegram" | "point" | "stiri";
+    likes: number;
+    dislikes: number;
+    sentiment: "negative" | "neutral" | "positive" | null;
+    toxic: number | null;
+    disputes: number | null;
+    is_reply: boolean;
+    posted_at: string | null;
+    url: string | null;
+}
+export interface NewsOutlet {
+    key: string;
+    name: string;
+    homepage: string;
+    lang: string;
+    channels: ("web" | "facebook" | "tiktok" | "youtube" | "telegram")[];
+    reports_7d: number;
+}
+export interface StoryReaction {
+    event_id: string;
+    reaction: Reaction | null;
+}
+export type CourtNameCase = CourtCase & ({
+    side: "a" | "b" | "";
+});
+export interface CourtName {
+    profile: {
+        kind: "person" | "company";
+        slug: string;
+        name: string;
+        cases: number;
+        url: string;
+    };
+    filter: {
+        court: string | null;
+        side: string | null;
+        year: number | null;
+        status: string | null;
+        type: string | null;
+    };
+    facets: {
+        years: {
+            year: number;
+            n: number;
+        }[];
+        types: Record<string, number>;
+        statuses: {
+            open: number;
+            decided: number;
+        };
+        sides: Record<string, number>;
+    };
+    summary: {
+        cases: number;
+        as_plaintiff: number;
+        as_defendant: number;
+        alone: number;
+        kinds: Record<string, number>;
+        first_on: string | null;
+        last_on: string | null;
+        decisions: number;
+        next: CourtHearing | null;
+    };
+    courts: (CourtRef & {
+        n: number;
+    })[];
+    cases: CourtNameCase[];
+    upcoming: CourtHearing[];
+}
+export interface CompanyActivity {
+    text: string | null;
+    division: {
+        key: string;
+        code: string;
+        revision: "r1" | "r2";
+        name: string | null;
+    } | null;
+    class: {
+        code: string;
+        name: string | null;
+    } | null;
+    sector: {
+        key: string;
+        name: string | null;
+    } | null;
+}
+export interface CompanyCard {
+    idno: string;
+    slug: string;
+    name: string;
+    display: string;
+    legal_form: string | null;
+    active: boolean | null;
+    city: string | null;
+    registered: string | null;
+    activity: CompanyActivity;
+    contracts_won: number | null;
+    contracts_mdl: number | null;
+    court_cases: number | null;
+    page: string;
+}
+export interface CompanyContract {
+    ocid: string | null;
+    title: string | null;
+    buyer: string | null;
+    buyer_idno: string | null;
+    amount: number | null;
+    currency: string | null;
+    category: string | null;
+    cpv: string | null;
+    status: string | null;
+    at: string | null;
+    url: string | null;
+}
+export interface CompanyStatement {
+    source: "app" | "bnm-ocn";
+    year: number;
+    day: string | null;
+    revenue: number | null;
+    profit: number | null;
+    assets: number | null;
+    equity: number | null;
+    capital: number | null;
+    loans: number | null;
+    leasing: number | null;
+    employees: number | null;
+    url: string;
+}
+export interface CompanyFigure {
+    source: string;
+    key: "own_funds" | "capital_ratio" | "assets" | "loans" | "deposits" | "profit";
+    unit: string;
+    latest: {
+        day: string;
+        value: number;
+    };
+    before: {
+        day: string;
+        value: number;
+    } | null;
+    url: string;
+}
+export type Company = CompanyCard & ({
+    status: string | null;
+    register_date: string | null;
+    in_register: boolean;
+    address: string | null;
+    activities: string[];
+    people: {
+        directors?: string[];
+        founders?: string[];
+    };
+    history: {
+        fields: Record<string, {
+            day: string;
+            value: string;
+        }[]>;
+        today: string | null;
+    } | null;
+    group: {
+        founded_by: (CompanyCard & ({
+            share: number | null;
+        }))[];
+        founded: (CompanyCard & ({
+            share: number | null;
+        }))[];
+        founded_n: number;
+        siblings: CompanyCard[];
+    };
+    scale: "micro" | "sme" | "large" | null;
+    contracts: {
+        count: number;
+        mdl: number;
+        by_year: {
+            year: number;
+            n: number;
+            mdl: number;
+        }[];
+        buyers: ({
+            name: string;
+            idno: string | null;
+            n: number;
+            mdl: number;
+        })[];
+        recent: CompanyContract[];
+    } | null;
+    subsidies: {
+        month: string;
+        measure: string;
+        amount: number;
+        url: string;
+    }[] | null;
+    statements: CompanyStatement[] | null;
+    figures: CompanyFigure[] | null;
+    site: {
+        website: string | null;
+        socials: ({
+            network: string;
+            url: string;
+            found_on: string | null;
+            seen: string | null;
+        })[];
+        brands: ({
+            host: string;
+            name: string | null;
+            kind: string | null;
+            evidence: string;
+            evidence_url: string;
+            checked: string | null;
+        })[];
+    } | null;
+    courts: {
+        profile: {
+            kind: string;
+            slug: string;
+            name: string;
+            cases: number;
+            url: string;
+            api: string;
+        };
+        cases: number;
+        as_plaintiff: number;
+        as_defendant: number;
+        next: CourtHearing | null;
+        recent: CourtNameCase[];
+    } | null;
+    updated_at: string | null;
+});
+export interface CompanyStats {
+    total: number;
+    active: number;
+    in_register: number;
+    register_date: string | null;
+    forms: {
+        form: string;
+        n: number;
+    }[];
+    cities: {
+        city: string;
+        n: number;
+    }[];
+    sectors: ({
+        key: string;
+        name: string | null;
+        n: number;
+    })[];
+    years: {
+        year: number;
+        n: number;
+    }[];
+    with_site: number | null;
+    contracts: number | null;
+    contracts_mdl: number | null;
+}
+export interface InsFigure {
+    unit: string;
+    day: string;
+    value: number;
+    year_before: {
+        day: string;
+        value: number;
+    } | null;
+}
+export interface Insurers {
+    quarter: string | null;
+    month: string | null;
+    insurers: ({
+        key: string;
+        slug: string;
+        name: string;
+        site: string | null;
+        life: boolean;
+        quarter: string | null;
+        share_pct: number | null;
+        figures: Record<string, InsFigure>;
+        averages: Record<string, {
+            month: string;
+            premium: number | null;
+            claim: number | null;
+        }>;
+    })[];
+}
+export interface InsMarket {
+    quarter: string | null;
+    classes: ({
+        code: string;
+        key: string;
+        name: string;
+        policies: number | null;
+        premiums: number | null;
+        claims_n: number | null;
+        claims_paid: number | null;
+        avg_premium: number | null;
+    })[];
+    quarters: {
+        date: string;
+        gwp: number;
+        claims: number;
+    }[];
+    rca_avg: {
+        date: string;
+        value: number;
+    }[];
+    green_card_avg: {
+        date: string;
+        value: number;
+    }[];
+}
+export interface Delivery {
+    cities: ({
+        key: string;
+        name: string;
+        raion: string | null;
+        lat: number | null;
+        lon: number | null;
+    })[];
+    stores: ({
+        key: string;
+        name: string;
+        site: string | null;
+        zones: ({
+            cities: string[];
+            fee: number | null;
+            fee_max: number | null;
+            free_from: number | null;
+            min_order: number | null;
+            days_min: number | null;
+            days_max: number | null;
+            how: string | null;
+            per_km: number | null;
+            note: string | null;
+        })[];
+        shops: Record<string, number | null>;
+        shops_total: number | null;
+        pickup: Record<string, unknown> | null;
+        prices: string | null;
+        price_note: string | null;
+        delivery_terms: Record<string, unknown> | null;
+        pickup_terms: Record<string, unknown> | null;
+        sources: string[];
+        checked: string | null;
+    })[];
+}
+export interface Licence {
+    register: string;
+    number: string | null;
+    name: string | null;
+    status: string | null;
+    active: boolean;
+    decision: string | null;
+    since: string | null;
+    removed: string | null;
+    activities: string[];
+    file_day: string | null;
+    url: string;
+}
+export interface Notice {
+    day: string;
+    kind: "name" | "address" | "liquidating" | "liquidated";
+    value: string | null;
+}
+export interface ReferenceTariffs {
+    on: string;
+    law: Record<string, unknown> | null;
+    rca: {
+        tariff: {
+            key: string;
+            act: string;
+            published: string | null;
+            url: string;
+            valid_from: string;
+            valid_to: string | null;
+            read_on: string | null;
+        };
+        currency: string;
+        base: number;
+        k1: Record<string, unknown>[];
+        k2: Record<string, unknown>[];
+        k3: Record<string, unknown>[];
+        k4: Record<string, unknown>[];
+        k5_foreign: number;
+        k6_months: Record<string, number>;
+        bonus_malus: Record<string, unknown>;
+        premium: {
+            profile: Record<string, unknown>;
+            mdl: number;
+            factors: Record<string, unknown>;
+        } | null;
+    };
+    green_card: {
+        tariff: {
+            key: string;
+            act: string;
+            published: string | null;
+            url: string;
+            valid_from: string;
+            valid_to: string | null;
+            read_on: string | null;
+        };
+        currency: string;
+        zones: Record<string, unknown>[];
+    } | null;
+    reference_history: Record<string, unknown>[];
+    vignettes: Record<string, Record<string, unknown>>;
+    road_tax: Record<string, unknown>;
+    periods: Record<string, unknown>;
+}
+export interface StreetPiece {
+    name: string;
+    lat: number;
+    lon: number;
+    locality: {
+        name: string;
+        kind: string;
+        raion: string | null;
+    } | null;
+}
+export interface Located {
+    lat: number;
+    lon: number;
+    precision: "house" | "street" | "locality";
+    locality: string | null;
+    street: string | null;
+}
+export interface CatalogTree {
+    langs: string[];
+    categories: {
+        key: string;
+        label: Record<string, string>;
+        slug: Record<string, string>;
+    }[];
+    departments: ({
+        key: string;
+        category: string | null;
+        label: Record<string, string>;
+        slug: Record<string, string>;
+        subcategories: {
+            key: string;
+            facets: string[];
+            label: Record<string, string>;
+            slug: Record<string, string>;
+            leaves: {
+                key: string;
+                label: Record<string, string>;
+                slug: Record<string, string>;
+            }[];
+        }[];
+    })[];
+}
+export interface MovieItem {
+    id: string;
+    kind: "movie" | "series";
+    title: string;
+    original_title: string | null;
+    year: number | null;
+    released: string | null;
+    language: string | null;
+    rating: {
+        value: number;
+        votes: number | null;
+    } | null;
+    overview: string | null;
+    pictures: {
+        poster?: {
+            s: string;
+            m: string;
+            l: string;
+        };
+        backdrop?: {
+            m: string;
+            w: string;
+        };
+        photo?: {
+            s: string;
+            m: string;
+            l: string;
+        };
+    } | null;
+    genres?: string[];
+    role?: string | null;
+}
+export interface MoviePersonItem {
+    id: string;
+    kind: "person";
+    name: string;
+    known_for: string | null;
+    pictures: {
+        poster?: {
+            s: string;
+            m: string;
+            l: string;
+        };
+        backdrop?: {
+            m: string;
+            w: string;
+        };
+        photo?: {
+            s: string;
+            m: string;
+            l: string;
+        };
+    } | null;
+    known_for_titles: MovieItem[];
+}
+export interface MovieList {
+    page: number;
+    pages: number;
+    total: number | null;
+    results: (MovieItem | MoviePersonItem)[];
+    dates?: {
+        minimum: string;
+        maximum: string;
+    } | null;
+}
+export interface MovieTitle {
+    id: string;
+    kind: "movie" | "series";
+    title: string;
+    original_title: string | null;
+    tagline: string | null;
+    overview: string | null;
+    year: number | null;
+    released: string | null;
+    status: string | null;
+    runtime_min: number | null;
+    genres: string[];
+    countries: string[];
+    language: string | null;
+    spoken: string[];
+    ratings: Record<string, {
+        value: number;
+        votes: number | null;
+    } | null>;
+    age_rating: {
+        country: string;
+        rating: string;
+    } | null;
+    pictures: {
+        poster?: {
+            s: string;
+            m: string;
+            l: string;
+        };
+        backdrop?: {
+            m: string;
+            w: string;
+        };
+        photo?: {
+            s: string;
+            m: string;
+            l: string;
+        };
+    } | null;
+    people: {
+        directors: {
+            id: string;
+            name: string;
+        }[];
+        writers: {
+            id: string;
+            name: string;
+        }[];
+        cast: ({
+            id: string;
+            name: string;
+            character: string | null;
+            pictures: {
+                poster?: {
+                    s: string;
+                    m: string;
+                    l: string;
+                };
+                backdrop?: {
+                    m: string;
+                    w: string;
+                };
+                photo?: {
+                    s: string;
+                    m: string;
+                    l: string;
+                };
+            } | null;
+        })[];
+    };
+    companies: string[];
+    watch: {
+        country: string;
+        stream: string[];
+        free: string[];
+        rent: string[];
+        buy: string[];
+    } | null;
+    trailers: {
+        name: string;
+        type: string;
+        youtube: string;
+        url: string;
+    }[];
+    imdb: string | null;
+    similar: MovieItem[];
+    attribution: Record<string, unknown> | null;
+    money?: {
+        budget_usd: number | null;
+        box_office_usd: number | null;
+    };
+    collection?: string | null;
+    series?: {
+        seasons: number | null;
+        episodes: number | null;
+        last_aired: string | null;
+        in_production: boolean | null;
+        networks: string[];
+        next_episode: string | null;
+        season_list: ({
+            number: number;
+            name: string | null;
+            episodes: number | null;
+            aired: string | null;
+        })[];
+    };
+}
+export type MovieTitleFull = MovieTitle & ({
+    moods: Record<string, number> | null;
+    questions: {
+        q: string;
+        a: string;
+    }[];
+    topics: string[];
+    keywords: string[];
+    age_ratings: Record<string, string>;
+    soundtrack: {
+        album: string;
+        released: string | null;
+        tracks: ({
+            n: number | null;
+            title: string;
+            artist: string | null;
+            seconds: number | null;
+        })[];
+    } | null;
+    after_credits: {
+        during: boolean | null;
+        after: boolean | null;
+    } | null;
+    external: {
+        imdb_id?: string;
+        wikidata_id?: string;
+    } | null;
+    recommended: MovieItem[];
+});
+export interface MoviePerson {
+    id: string;
+    kind: "person";
+    name: string;
+    known_for: string | null;
+    born: string | null;
+    died: string | null;
+    birthplace: string | null;
+    biography: string | null;
+    imdb: string | null;
+    pictures: {
+        poster?: {
+            s: string;
+            m: string;
+            l: string;
+        };
+        backdrop?: {
+            m: string;
+            w: string;
+        };
+        photo?: {
+            s: string;
+            m: string;
+            l: string;
+        };
+    } | null;
+    work: MovieItem[];
+    attribution: Record<string, unknown> | null;
+}
+export interface MovieShowtimes {
+    id: string;
+    country: string;
+    cinemas: ({
+        cinema: string;
+        chain: string | null;
+        city: string | null;
+        address: string | null;
+        lat: number | null;
+        lon: number | null;
+        sessions: ({
+            date: string;
+            start: string;
+            formats: string[];
+            language: string | null;
+            subtitles: string | null;
+            price: number | null;
+            currency: string | null;
+            booking_url: string | null;
+            sold_out: boolean | null;
+        })[];
+    })[];
+    countries: ({
+        country: string;
+        cinemas: number | null;
+        sessions: number | null;
+    })[];
+}
+export interface MovieGenres {
+    kind: string;
+    genres: {
+        id: number;
+        name: string;
+    }[];
+}
+export interface Cinema {
+    id: string;
+    name: string;
+    chain: string | null;
+    city: string | null;
+    address: string | null;
+    screens: number | null;
+    lat: number | null;
+    lon: number | null;
+    sessions: number;
+    first_day: string | null;
+    last_day: string | null;
+}
+export interface CinemaCoverage {
+    country: string;
+    chains: number | null;
+    cinemas: number | null;
+    cities: number | null;
+    sessions: number | null;
+    films: number | null;
+    first_day: string | null;
+    last_day: string | null;
+    read_at: string | null;
+    cinemas_with_sessions?: number | null;
+}
+export interface CinemaSession {
+    date: string;
+    time: string;
+    hall: string | null;
+    formats: string[];
+    audio: string | null;
+    language: string | null;
+    subtitles: string | null;
+    price: number | null;
+    currency: string | null;
+    sold_out: boolean;
+    booking_url: string | null;
+}
+export interface CinemaFilm {
+    id: string | null;
+    kind: "movie" | "series";
+    title: string;
+    original_title?: string | null;
+    year?: number | null;
+    released?: string | null;
+    language?: string | null;
+    rating?: {
+        value: number;
+        votes: number | null;
+    } | null;
+    overview?: string | null;
+    pictures?: {
+        poster?: {
+            s: string;
+            m: string;
+            l: string;
+        };
+        backdrop?: {
+            m: string;
+            w: string;
+        };
+        photo?: {
+            s: string;
+            m: string;
+            l: string;
+        };
+    } | null;
+    genres?: string[];
+    role?: string | null;
+    listed_title: string | null;
+    sessions: CinemaSession[];
+}
+export interface CinemaSchedule {
+    cinema: Cinema;
+    day: string | null;
+    films: CinemaFilm[];
+}
+export interface CinemaBoard {
+    country: string;
+    day: string | null;
+    cinemas: {
+        cinema: Cinema;
+        films: CinemaFilm[];
+    }[];
+    coverage: CinemaCoverage;
+}
+export type CompaniesLicencesData = ({
+    company: {
+        idno: string;
+        name: string;
+        legal_form: string | null;
+        page: string;
+    };
+    register: string;
+    number: string | null;
+    name: string | null;
+    status: string | null;
+    active: boolean;
+    decision: string | null;
+    since: string | null;
+    removed: string | null;
+    activities: string[];
+    file_day: string | null;
+    url: string;
+})[];
+export type CompaniesNoticesData = ({
+    company: {
+        idno: string;
+        name: string;
+        legal_form: string | null;
+        page: string;
+    };
+    day: string;
+    kind: "name" | "address" | "liquidating" | "liquidated";
+    value: string | null;
+})[];
+export type CompaniesLicencesOfData = {
+    company: {
+        idno: string;
+        name: string;
+        legal_form: string | null;
+        page: string;
+    };
+    licences: Licence[];
+};
+export type CompaniesNoticesOfData = {
+    company: {
+        idno: string;
+        name: string;
+        legal_form: string | null;
+        page: string;
+    };
+    notices: Notice[];
+};
+export type MoviesCinemasData = {
+    coverage: CinemaCoverage;
+    cinemas: Cinema[];
+};
