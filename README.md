@@ -62,7 +62,7 @@ const satelit = new Satelit({
 });
 ```
 
-**Keep the key on a server.** A key in browser code is readable by every visitor, and every call it makes is billed to you. The client refuses a key when it runs in a web page (unless you pass `allowBrowser: true`); call Satelit from your server or a small proxy and send your page only what it shows. The keyless routes are fine in a browser.
+**Keep the key on a server.** A key in browser code is readable by every visitor, and every call it makes is billed to you. The client refuses a key when it runs in a web page (unless you pass `allowBrowser: true`). Call Satelit from your server or a small proxy and send your page only what it shows. The keyless routes are fine in a browser.
 
 A minimal proxy for one route, with a cache ([`examples/proxy.mjs`](examples/proxy.mjs)):
 
@@ -115,7 +115,7 @@ await satelit.movies.today({ city: 'Chișinău' }, { signal: AbortSignal.timeout
 
 ### Pages
 
-Paged lists carry `meta.page`. `paginate` walks them and yields the items; every page is a call and costs its credits, so bound it with `maxPages`:
+Paged lists carry `meta.page`. `paginate` walks them and yields the items. Every page is a call and costs its credits, so bound it with `maxPages`:
 
 ```js
 for await (const tour of satelit.paginate(satelit.tours.list, { country: 'Turcia' }, { maxPages: 3 })) {
@@ -153,7 +153,7 @@ Readable.fromWeb(await satelit.export.stream('rates')).pipe(createWriteStream('r
 
 ## Methods
 
-Every route of the API (generated from [`spec/openapi.json`](spec/openapi.json) by `npm run generate`). Credits are as the API documents them; the `rate.creditsCost` of each answer is the exact figure.
+Every route of the API (generated from [`spec/openapi.json`](spec/openapi.json) by `npm run generate`). Credits are as the API documents them. The `rate.creditsCost` of each answer is the exact figure.
 
 <!-- methods:start -->
 | Method | Route | Credits |
@@ -285,12 +285,12 @@ Every failure throws `SatelitError`:
 | Status | `code` | What to do |
 |---|---|---|
 | 401 | `auth_required`, `key_invalid` | check the key |
-| 402 | `plan_required` | the plan does not include this; see `choose` or the pricing page |
+| 402 | `plan_required` | the plan does not include this. See `choose` or the pricing page |
 | 403 | `not_available`, `account_suspended` | the product is closed, or the account is |
 | 404 | `not_found` | no such id |
 | 422 | `invalid` | fix `fields` |
 | 429 | `rate_limited` | retried for you after `Retry-After` (at most 3 times) |
-| 429 | `quota_exceeded` | out of credits this period: never retried; buy a pack or wait for the reset |
+| 429 | `quota_exceeded` | out of credits this period: never retried. Buy a pack or wait for the reset |
 | 429 | `export_running` | one export at a time per account |
 | 503 | `busy` | retried for you when `Retry-After` is given |
 
@@ -304,11 +304,11 @@ try {
 }
 ```
 
-A timeout aborts the attempt and throws `code: 'timeout'`; your own `signal` aborting throws its reason unchanged. A `Retry-After` over 60 seconds is not waited for. More: [errors](https://developer.satelit.md/en/errors/), [rate limits](https://developer.satelit.md/en/rate-limits/).
+A timeout aborts the attempt and throws `code: 'timeout'`. Your own `signal` aborting throws its reason unchanged. A `Retry-After` over 60 seconds is not waited for. More: [errors](https://developer.satelit.md/en/errors/), [rate limits](https://developer.satelit.md/en/rate-limits/).
 
 ## Caching and credits
 
-A credit is charged only on a 2xx answer. Most calls cost 1 to 5 credits; **every Movies call costs 40** (`movies.titleFull` 55), except `movies.genres` (0) and the keyless `movies.board`. Keep answers and reuse them; the sources do not change faster than this:
+A credit is charged only on a 2xx answer. Most calls cost 1 to 5 credits; **every Movies call costs 40** (`movies.titleFull` 55), except `movies.genres` (0) and the keyless `movies.board`. Keep answers and reuse them. The sources do not change faster than this:
 
 | Data | Keep it for |
 |---|---|
@@ -319,7 +319,7 @@ A credit is charged only on a 2xx answer. Most calls cost 1 to 5 credits; **ever
 | cinema schedules | 1 to 3 h |
 | a film's or person's details | 24 h or more |
 
-The examples use a small file cache ([`examples/cache.mjs`](examples/cache.mjs)); on a server, any cache you already have will do (Redis, a KV store, a map with timestamps). Read `rate.creditsRemaining` to watch the balance, or call `satelit.me()` (free).
+The examples use a small file cache ([`examples/cache.mjs`](examples/cache.mjs)). On a server, any cache you already have will do (Redis, a KV store, a map with timestamps). Read `rate.creditsRemaining` to watch the balance, or call `satelit.me()` (free).
 
 **Attribution.** Wherever you show the data, show `meta.attribution` when it is not null (rates carry BNM's line `Sursa: Banca Națională a Moldovei, bnm.md, CC BY 4.0`, OpenStreetMap places their ODbL line) and a small "Data: Satelit (satelit.md)" link. Show the shop's name with every shop price.
 
@@ -385,9 +385,9 @@ Other runtimes with a standard `fetch` (Deno, Bun, Cloudflare Workers) were not 
 - **401 `auth_required`**: no key reached the API. Set `SATELIT_API_KEY` or pass `apiKey`.
 - **402 `plan_required`** on `feed` or `export`: those need Business (feed) or Enterprise (export).
 - **429 `quota_exceeded`**: this period's credits are spent; `rate.creditsReset` says when they return.
-- **`timeout`**: the default is 10 s per attempt; raise `timeoutMs` for heavy calls.
+- **`timeout`**: the default is 10 s per attempt. Raise `timeoutMs` for heavy calls.
 - **"an API key in a browser is visible to every visitor"**: move the call to a server (see Configure).
-- **`TypeError: No fetch`**: the runtime has no global `fetch`; pass one with the `fetch` option.
+- **`TypeError: No fetch`**: the runtime has no global `fetch`. Pass one with the `fetch` option.
 
 ## Links
 
@@ -395,7 +395,7 @@ Other runtimes with a standard `fetch` (Deno, Bun, Cloudflare Workers) were not 
 
 ## Pe scurt (română)
 
-SDK-ul oficial JavaScript/TypeScript pentru API-ul de date Satelit: cursurile BNM, carburanți, tarife, prețuri în magazine, legi, știri, companii, instanțe, filme și cinematografe. Fără dependențe, ESM și CommonJS, tipuri pentru fiecare rută. Instalare: `npm install github:Satelit-Moldova/satelit-js`. Cheia (`sat_live_…`) se ia din [consolă](https://developer.satelit.md/en/console/) și se ține doar pe server, niciodată în pagina din browser. Fiecare apel întoarce `{ data, meta, rate }`; erorile sunt `SatelitError` cu `status`, `code`, `message`, `docs`. Păstrați răspunsurile în cache (cursurile câteva ore, știrile 10-15 minute): un apel Movies costă 40 de credite. Afișați `meta.attribution` și „Date: Satelit (satelit.md)” lângă date.
+SDK-ul oficial JavaScript/TypeScript pentru API-ul de date Satelit: cursurile BNM, carburanți, tarife, prețuri în magazine, legi, știri, companii, instanțe, filme și cinematografe. Fără dependențe, ESM și CommonJS, tipuri pentru fiecare rută. Instalare: `npm install github:Satelit-Moldova/satelit-js`. Cheia (`sat_live_…`) se ia din [consolă](https://developer.satelit.md/en/console/) și se ține doar pe server, niciodată în pagina din browser. Fiecare apel întoarce `{ data, meta, rate }`. Erorile sunt `SatelitError` cu `status`, `code`, `message`, `docs`. Păstrați răspunsurile în cache (cursurile câteva ore, știrile 10-15 minute): un apel Movies costă 40 de credite. Afișați `meta.attribution` și „Date: Satelit (satelit.md)” lângă date.
 
 ## License
 
